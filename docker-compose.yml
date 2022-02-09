@@ -1,0 +1,22 @@
+version: '3'
+
+volumes:
+  server-poetry: {}
+  client-poetry: {}
+
+services:
+  server:
+    build: .
+    volumes:
+      - server-poetry:/root/.cache/pypoetry/virtualenvs
+      - .:/app
+    command: ["my-grpc-server"]
+
+  client:
+    build: .
+    volumes:
+      - client-poetry:/root/.cache/pypoetry/virtualenvs
+      - .:/app
+    command: ["my-grpc-client"]
+    depends_on:
+      - server

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package calculator;
+
+message Operation {
+    int32 lhs = 1;
+    int32 rhs = 2;
+
+    enum OperationType {
+        ADD = 0;
+        SUB = 1;
+        MUL = 2;
+        DIV = 3;
+        MOD = 4;
+    }
+
+    optional OperationType op = 3;
+}
+
+message Result {
+    int32 value = 1;
+}
+
+service Calculator {
+    rpc Calculate(Operation) returns (Result);
+}
